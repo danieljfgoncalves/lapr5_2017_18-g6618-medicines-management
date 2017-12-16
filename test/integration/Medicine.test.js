@@ -20,7 +20,7 @@ describe('Medicine Tests', () => {
             throw err;
           }
 
-          // shapping data to ignore ids and dates
+          // shaping data to ignore ids and dates
           var result = [];
           res.body.forEach(element => {
             result.push({name:element.name});

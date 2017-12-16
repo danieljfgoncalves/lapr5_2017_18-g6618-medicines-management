@@ -28,14 +28,31 @@ module.exports.bootstrap = (done) => {
     });
 
   }).then(res => {
+    new Promise( (resolve, reject) => {
 
-    Drug.create(mockObject.drugs).exec( err => {
-      if (err) {
-        return done(err);
-      }
-      done();
+      Drug.create(mockObject.drugs).exec( err => {
+        if (err) {
+          return done(err);
+        }
+        resolve();
+      });
+
     });
-    
+  }).then(res => {
+    new Promise( (resolve, reject) => {
+
+      Presentation.create(mockObject.presentations).exec( err => {
+        if (err) {
+          return done(err);
+        }
+        resolve();
+      });
+
+    });
+  }).then(res => {
+
+    done();
+
   });
 
     
