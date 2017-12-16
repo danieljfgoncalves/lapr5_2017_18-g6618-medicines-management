@@ -22,12 +22,19 @@ describe('Presentation Tests', () => {
 
           // shaping data to ignore ids and dates
           var result = [];
-          res.body.forEach(element => {            
+          res.body.forEach(element => {          
+            
+            var posologies = [];
+            element.posologies.forEach(pos => {
+              posologies.push(pos.id);
+            });
+            
             result.push({
               form:element.form,
               concentration:element.concentration,
               packageQuantity:element.packageQuantity,
               drug:element.drug.id,
+              posologies:posologies
             });
           });
           

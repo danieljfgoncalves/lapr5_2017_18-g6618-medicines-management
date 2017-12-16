@@ -1,7 +1,7 @@
 /**
- * Presentation.js
+ * Posology.js
  *
- * @description :: Represents the presentation of a drug
+ * @description :: Represents the posology of a presentation
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
@@ -9,30 +9,31 @@ module.exports = {
 
   attributes: {
 
-    form: {
+    period: {
       type: 'string',
       required: true
     },
-
-    concentration: {
+    
+    interval: {
       type: 'string',
       required: true
     },
-
-    packageQuantity: {
-      type: 'integer',
+    
+    technique: {
+      type: 'string',
       required: true
     },
-
-    drug: {
-      model: 'Drug',
+    
+    dosage: {
+      type: 'string',
       required: true
     },
-
-    posologies: {
-      collection: 'Presentation'
+    
+    recommendedFor: {
+      type: 'string'
     }
 
   }
+
 };
 

@@ -50,6 +50,17 @@ module.exports.bootstrap = (done) => {
 
     });
   }).then(res => {
+    new Promise( (resolve, reject) => {
+
+      Posology.create(mockObject.posologies).exec( err => {
+        if (err) {
+          return done(err);
+        }
+        resolve();
+      });
+
+    });
+  }).then(res => {
 
     done();
 
