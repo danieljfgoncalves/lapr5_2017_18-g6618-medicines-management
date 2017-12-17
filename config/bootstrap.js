@@ -32,18 +32,7 @@ module.exports.bootstrap = (done) => {
 
       Drug.create(mockObject.drugs).exec( err => {
         if (err) {
-          return done(err);
-        }
-        resolve();
-      });
-
-    });
-  }).then(res => {
-    new Promise( (resolve, reject) => {
-
-      Presentation.create(mockObject.presentations).exec( err => {
-        if (err) {
-          return done(err);
+          return reject(err);
         }
         resolve();
       });
@@ -54,7 +43,29 @@ module.exports.bootstrap = (done) => {
 
       Posology.create(mockObject.posologies).exec( err => {
         if (err) {
-          return done(err);
+          return reject(err);
+        }
+        resolve();
+      });
+
+    });
+  }).then(res => {
+    new Promise( (resolve, reject) => {
+
+      Comment.create(mockObject.comments).exec( err => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
+
+    });
+  }).then(res => {
+    new Promise( (resolve, reject) => {
+
+      Presentation.create(mockObject.presentations).exec( err => {
+        if (err) {
+          return reject(err);
         }
         resolve();
       });

@@ -22,11 +22,16 @@ describe('Presentation Tests', () => {
 
           // shaping data to ignore ids and dates
           var result = [];
-          res.body.forEach(element => {          
+          res.body.forEach(element => {
             
             var posologies = [];
             element.posologies.forEach(pos => {
               posologies.push(pos.id);
+            });
+            
+            var comments = [];
+            element.comments.forEach(comm => {
+              comments.push(comm.id);
             });
             
             result.push({
@@ -34,7 +39,8 @@ describe('Presentation Tests', () => {
               concentration:element.concentration,
               packageQuantity:element.packageQuantity,
               drug:element.drug.id,
-              posologies:posologies
+              posologies:posologies,
+              comments:comments
             });
           });
           

@@ -22,7 +22,14 @@ exports.posologies = [
     { period: '14 days', interval: '12 n\' 12', dosage: '20 mg', technique: 'injection' }
 ];
 
+exports.comments = [
+    { physician: '5a35cc23ceee9e24764ba33c', text: 'allergy' },
+    { physician: '5a35cc23ceee9e24764ba44c', text: 'itchy' },
+    { physician: '5a35cc23ceee9e24764ba55c', text: 'nausea' },
+    { physician: '5a35cc23ceee9e24764ba66c', text: 'upset stomach' }
+]
+
 exports.presentations = [
-    { form: 'blister', concentration: '200mg', packageQuantity: 33, drug: 1, posologies: [1] },
-    { form: 'xarope', concentration: '300ml', packageQuantity: 22, drug: 2, posologies: [2, 3] }
+    { form: 'blister', concentration: '200mg', packageQuantity: 33, drug: 1, posologies: [1], comments: [1, 2] },
+    { form: 'xarope', concentration: '300ml', packageQuantity: 22, drug: 2, posologies: [2, 3], comments: [3, 4] }
 ];
