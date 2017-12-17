@@ -34,7 +34,7 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
 
   /***************************************************************************
   *                                                                          *
@@ -45,5 +45,8 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+
+  'GET /api/presentations/detailed': { controller: 'presentation' , action: 'detailedPresentations'},
+  'GET /api/presentations/:id/detailed': { controller: 'presentation' , action: 'detailedPresentation'}
 
 };
