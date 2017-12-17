@@ -34,6 +34,15 @@ module.exports.connections = {
 
   testDB: {
     adapter: 'sails-memory'
+  },
+
+  prodDB: {
+    adapter: 'sails-mongo',
+    host: 'ds159676.mlab.com',
+    port: 59676,
+    user: 'admin',
+    password: '123+qwe-123+qwe',
+    database: 'medicines-management'
   }
 
   /***************************************************************************

@@ -11,15 +11,15 @@ module.exports = {
    * environment (see config/connections.js and config/models.js )           *
    ***************************************************************************/
 
+  models: {
+    migrate: 'drop',
+    connection: "testDB"
+  },
+
   port: 9999,
 
   log: {
     level: 'error'
-  },
-
-  models: {
-    migrate: 'drop',
-    connection: "testDB"
   }
 
 };
