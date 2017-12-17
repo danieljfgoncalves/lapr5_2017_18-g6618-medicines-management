@@ -12,6 +12,10 @@ module.exports = {
     name: {
       type: 'string',
       required: true
+    },
+
+    drug: {
+      model: 'Drug'
     }
     
   }

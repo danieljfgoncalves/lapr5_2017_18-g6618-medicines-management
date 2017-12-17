@@ -9,10 +9,10 @@ var assert = require('assert');
 
 describe('Posology Tests', () => {
 
-  describe('[GET] /posology', () => {
+  describe('[GET] /api/posologies', () => {
     it('should get the two mocked up posologies', done => {
       request(sails.hooks.http.app)
-        .get('/posology')
+        .get('/api/posologies')
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(200)
         .end( (err, res) => {
@@ -43,10 +43,10 @@ describe('Posology Tests', () => {
 
   });
 
-  describe("[POST] /posology", () => {
+  describe("[POST] /api/posologies", () => {
     it("should create new posology", done => {
       request(sails.hooks.http.app)
-        .post('/posology')
+        .post('/api/posologies')
         .send({
           period: '7 days',
           interval: '2 n\' 2',

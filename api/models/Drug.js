@@ -15,7 +15,13 @@ module.exports = {
     },
 
     medicines: {
-      collection: 'Medicine'
+      collection: 'Medicine',
+      via: 'drug'
+    },
+
+    presentations: {
+      collection: 'Presentation',
+      via: 'drug'
     }
 
   }

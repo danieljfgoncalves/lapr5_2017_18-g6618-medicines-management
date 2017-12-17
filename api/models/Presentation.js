@@ -30,7 +30,8 @@ module.exports = {
     },
 
     posologies: {
-      collection: 'Presentation'
+      collection: 'Posology',
+      via: 'presentation'
     }
 
   }

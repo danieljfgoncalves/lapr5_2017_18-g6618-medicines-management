@@ -9,10 +9,10 @@ var assert = require('assert');
 
 describe('Presentation Tests', () => {
 
-  describe('[GET] /presentation', () => {
+  describe('[GET] /api/presentations', () => {
     it('should get presentations of drugs [1,2]', done => {
       request(sails.hooks.http.app)
-        .get('/presentation')
+        .get('/api/presentations')
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(200)
         .end( (err, res) => {
@@ -45,10 +45,10 @@ describe('Presentation Tests', () => {
 
   });
 
-  describe("[POST] /presentation", () => {
+  describe("[POST] /api/presentations", () => {
     it("should create presentation for drug 3", done => {
       request(sails.hooks.http.app)
-        .post('/presentation')
+        .post('/api/presentations')
         .send({ 
           form: 'pill', 
           concentration: '100mg', 

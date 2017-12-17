@@ -31,6 +31,10 @@ module.exports = {
     
     recommendedFor: {
       type: 'string'
+    },
+
+    presentation: {
+      model: 'presentation'
     }
 
   }
