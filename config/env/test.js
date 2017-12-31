@@ -20,6 +20,10 @@ module.exports = {
 
   log: {
     level: 'error'
+  },
+
+  policies: {
+    '*': true
   }
 
 };
