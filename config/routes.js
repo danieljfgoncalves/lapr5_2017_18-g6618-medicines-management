@@ -47,6 +47,7 @@ module.exports.routes = {
   ***************************************************************************/
 
   'GET /api/presentations/detailed': { controller: 'presentation' , action: 'detailedPresentations'},
-  'GET /api/presentations/:id/detailed': { controller: 'presentation' , action: 'detailedPresentation'}
+  'GET /api/presentations/:id/detailed': { controller: 'presentation' , action: 'detailedPresentation'},
+  'GET /api/status': { controller: 'status', action: 'getStatus' }
 
 };
