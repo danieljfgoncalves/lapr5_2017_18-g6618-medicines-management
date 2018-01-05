@@ -5,6 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+const userServices = require('../services/userServices');
+
 module.exports = {
 
     /**
@@ -22,7 +24,7 @@ module.exports = {
 
             async.each(presentations, (presentation, callback) => {
 
-                processPresentation(presentation).then(data => {
+                processPresentation(presentation, req.accessToken).then(data => {
                     var DTO = filterFields(data, req.query.fields);
                     presentationsDTO.push(DTO);
                     callback();
@@ -53,7 +55,7 @@ module.exports = {
                 res.notFound();
                 return;
             }
-            processPresentation(presentations[0]).then(data => {
+            processPresentation(presentations[0], req.accessToken).then(data => {
                 var DTO = filterFields(data, req.query.fields);
                 res.status(200).send(DTO);
                 return;
@@ -69,7 +71,7 @@ module.exports = {
  * @param {*} presentation A raw presentation (the way it comes from find method)
  * @returns Promise with the shaped presentation
  */
-processPresentation = (presentation) => {
+processPresentation = (presentation, accessToken) => {
 
     var presentationDTO = {
         id: presentation.id,
@@ -125,14 +127,53 @@ processPresentation = (presentation) => {
                     res.serverError(err4);
                     return;
                 }
-                presentationDTO.comments = comments;
-                resolve(presentationDTO);
+
+                if (accessToken) {
+                    addUsersInfoToComments(comments, accessToken).then(commentsDTO => {
+                        presentationDTO.comments = commentsDTO;
+                        resolve(presentationDTO);
+                    });
+                }
+                else {
+                    presentationDTO.comments = comments;
+                    resolve(presentationDTO);
+                }
             });
 
         });
     });
 
 };
+
+/**
+ * Adds user info to comments.
+ * @param {*} comments Original comments
+ * @param {*} accessToken The access token
+ * @returns New comments with the user info
+ */
+addUsersInfoToComments = (comments, accessToken) => {
+    return new Promise( (resolve, reject) => {
+
+        commentsDTO = [];
+        async.each(comments, (comment, callback) => {
+
+            userServices.getUser(accessToken, comment.physician).then(pysicianUser => {
+                commentDTO = comment;
+                commentDTO.physician = pysicianUser;
+                commentsDTO.push(commentDTO)
+                callback();
+            });
+
+        }, err => {
+            if (err) {
+                res.serverError(err);
+                return;
+            }
+            resolve(commentsDTO);
+        });
+        
+    });
+}
 
 /**
  * Filters an object by fields.

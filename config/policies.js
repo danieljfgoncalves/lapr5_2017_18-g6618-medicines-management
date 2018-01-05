@@ -28,6 +28,15 @@ module.exports.policies = {
 
   '*': 'isAuthenticated',
 
+  PresentationController: {
+    detailedPresentations: ['isAuthenticated', 'getAuth0AccessToken'],
+    detailedPresentation: ['isAuthenticated', 'getAuth0AccessToken']
+  },
+  
+  StatusController: {
+    getStatus: true
+  }
+
   /***************************************************************************
   *                                                                          *
   * Here's an example of mapping some policies to run before a controller    *
@@ -48,8 +57,4 @@ module.exports.policies = {
 		// before letting any users feed our rabbits
 		// feed : ['isNiceToAnimals', 'hasRabbitFood']
   // }
-  
-  StatusController: {
-    getStatus: true
-  }
 };

@@ -23,7 +23,11 @@ module.exports = {
   },
 
   policies: {
-    '*': true
+    '*': true,
+    PresentationController: {
+      detailedPresentations: true,
+      detailedPresentation: true
+    }
   }
 
 };

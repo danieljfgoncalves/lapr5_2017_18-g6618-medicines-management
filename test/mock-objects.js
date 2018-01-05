@@ -23,10 +23,10 @@ exports.posologies = [
 ];
 
 exports.comments = [
-    { physician: '5a35cc23ceee9e24764ba33c', text: 'allergy' },
-    { physician: '5a35cc23ceee9e24764ba44c', text: 'itchy' },
-    { physician: '5a35cc23ceee9e24764ba55c', text: 'nausea' },
-    { physician: '5a35cc23ceee9e24764ba66c', text: 'upset stomach' }
+    { physician: 'auth0|5a3bf3a04a068c157e7f11d1', text: 'allergy' },
+    { physician: 'auth0|5a4ec19ca632d9312d306dbb', text: 'itchy' },
+    { physician: 'auth0|5a3bf3a04a068c157e7f11d1', text: 'nausea' },
+    { physician: 'auth0|5a4ec19ca632d9312d306dbb', text: 'upset stomach' }
 ]
 
 exports.presentations = [
