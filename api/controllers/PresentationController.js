@@ -20,23 +20,26 @@ module.exports = {
                 return;
             }
 
-            presentationsDTO = [];
+            userServices.getUsers(req.accessToken).then( users => {
 
-            async.each(presentations, (presentation, callback) => {
+                presentationsDTO = [];
 
-                processPresentation(presentation, req.accessToken).then(data => {
-                    var DTO = filterFields(data, req.query.fields);
-                    presentationsDTO.push(DTO);
-                    callback();
-                });
-
-            }, err2 => {
-                if (err2) {
-                    res.serverError(err2);
+                async.each(presentations, (presentation, callback) => {
+    
+                    processPresentation(presentation, users).then(data => {
+                        var DTO = filterFields(data, req.query.fields);
+                        presentationsDTO.push(DTO);
+                        callback();
+                    });
+    
+                }, err2 => {
+                    if (err2) {
+                        res.serverError(err2);
+                        return;
+                    }
+                    res.status(200).send(presentationsDTO);
                     return;
-                }
-                res.status(200).send(presentationsDTO);
-                return;
+                });
             });
         });
     },
@@ -55,10 +58,12 @@ module.exports = {
                 res.notFound();
                 return;
             }
-            processPresentation(presentations[0], req.accessToken).then(data => {
-                var DTO = filterFields(data, req.query.fields);
-                res.status(200).send(DTO);
-                return;
+            userServices.getUsers(req.accessToken).then( users => {
+                processPresentation(presentations[0], users).then(data => {
+                    var DTO = filterFields(data, req.query.fields);
+                    res.status(200).send(DTO);
+                    return;
+                });
             });
         });
 
@@ -71,7 +76,7 @@ module.exports = {
  * @param {*} presentation A raw presentation (the way it comes from find method)
  * @returns Promise with the shaped presentation
  */
-processPresentation = (presentation, accessToken) => {
+processPresentation = (presentation, users) => {
 
     var presentationDTO = {
         id: presentation.id,
@@ -128,8 +133,8 @@ processPresentation = (presentation, accessToken) => {
                     return;
                 }
 
-                if (accessToken) {
-                    addUsersInfoToComments(comments, accessToken).then(commentsDTO => {
+                if (users) {
+                    addUserInfoToCommentsByUsers(comments, users).then(commentsDTO => {
                         presentationDTO.comments = commentsDTO;
                         resolve(presentationDTO);
                     });
@@ -144,6 +149,53 @@ processPresentation = (presentation, accessToken) => {
     });
 
 };
+
+/**
+ * Adds user info to comments receiving the list of all users
+ * @param {*} comments Original comments
+ * @param {*} accessToken The access token
+ * @returns New comments with the user info
+ */
+addUserInfoToCommentsByUsers = (comments, users) => {
+    return new Promise( (resolve, reject) => {
+
+        commentsDTO = [];
+        async.each(comments, (comment, callback) => {
+
+            var userFound = false;
+            for(var i = 0; i < users.length; i++) {
+                var u = users[i];
+
+                if (u.user_id == comment.physician) {
+
+                    var commentDTO = comment;
+                    commentDTO.physician = {
+                        "roles": u.app_metadata.roles,
+                        "userID": u.user_id,
+                        "username": u.username,
+                        "email": u.email
+                    };
+                    commentsDTO.push(commentDTO)
+                    userFound = true;
+                    callback();
+                }
+            }
+
+            if (!userFound) {
+                commentsDTO.push(comment);
+                callback();
+            }
+
+        }, err => {
+            if (err) {
+                res.serverError(err);
+                return;
+            }
+            resolve(commentsDTO);
+        });
+        
+    });
+}
 
 /**
  * Adds user info to comments.
