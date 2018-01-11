@@ -26,7 +26,7 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  '*': [logs.http.customMiddleware, 'isAuthenticated'],
+  '*': 'isAuthenticated',
 
   PresentationController: {
     detailedPresentations: ['isAuthenticated', 'getAuth0AccessToken'],
